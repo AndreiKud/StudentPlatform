@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
     <head>
@@ -29,8 +28,7 @@
                         aria-controls="navbarToggle"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
-                    >
-                    </button>
+                    ></button>
                     <span class="navbar-toggler-icon"></span>
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <div class="navbar-nav mr-auto">
@@ -41,7 +39,7 @@
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
                             <a class="nav-item nav-link" href="#">Войти</a>
-                            <a class="nav-item nav-link" href="#">Регистрация</a>
+                            <a class="nav-item nav-link" href="{% url 'user-registration' %}">Регистрация</a>
                         </div>
                     </div>
                 </div>
@@ -50,6 +48,14 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-md-8">
+                    {% if messages %}
+                        {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
                     {% block content %}{% endblock %}
                 </div>
                 <div class="col-md-4">
@@ -67,7 +73,6 @@
                 </div>
             </div>
         </main>
-        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
