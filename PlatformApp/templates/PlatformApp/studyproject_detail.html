@@ -1,0 +1,74 @@
+{% extends "PlatformApp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="media content-section">
+    <!-- <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> -->
+    <div class="media-body">
+        <h1 class="text-capitalize font-weight-bold">{{ object.title }}</h1>
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_created|date:"F d, Y" }}</small>
+        </div>
+        <div class="container">
+            <h5 class="mt-3">Описание:</h5>
+            <textarea class="form-control" rows="10">{{ object.description }}</textarea>
+            <hr>
+            <div class="row">
+                <h5 class=" col-4">Заказчик:</h5>
+                <p class="col">{{ object.customer }}</p>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="col-4">Исполнитель:</h5>
+                <p class="col">{{ object.executor }}</p>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="col-4">Срок выполнения:</h5>
+                <p class="col">{{ object.date_deadline|date:"F d, Y" }}</p>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="col-4">Статус:</h5>
+                <p class="col">{{ object.status }}</p>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <h5>Вложенные файлы:</h5>
+                <textarea class="form-control mt-3" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+</article>
+<div class="content-section">
+    <section class="comments">
+        {% for review in reviews %}
+        <article class="comment">
+            <div class="comment-body">
+                <div class="text">
+                    <p>{{ review.content }}</p>
+                </div>
+                <p class="attribution">
+                    by
+                    <a href="#">{{ review.author }}</a>
+                    at {{ review.date_created }}
+                </p>
+            </div>
+        </article>
+        <hr class="mb-5">
+        {% empty %}
+        <p>Отзывы отстутствуют. Будьте первым!</p>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="comment">Ваш отзыв:</label>
+            <fieldset class="form-group">
+                {{ review_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Оставить отзыв</button>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock content %}

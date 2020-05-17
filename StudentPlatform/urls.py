@@ -16,9 +16,17 @@ Including another URLconf
 import sys
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
+
+# View site from admin panel
+admin.site.site_url = "/platform/"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('platform/', include('PlatformApp.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

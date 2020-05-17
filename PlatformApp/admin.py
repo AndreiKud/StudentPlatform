@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import StudyProject
+from .models import StudyProject, Review
 
-# Register your models here.
-admin.register(StudyProject)
+
+admin.site.register(StudyProject)
+admin.site.register(Review)
