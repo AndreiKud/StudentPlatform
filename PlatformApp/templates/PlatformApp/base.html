@@ -13,7 +13,7 @@
             crossorigin="anonymous"
         >
         <link rel="stylesheet" type="text/css" href="{% static 'PlatformApp/main.css' %}">
-        <title>Некая платформа</title>
+        <title>Студенческая платформа</title>
     </head>
     <body>
         <header class="site-header">
@@ -33,7 +33,7 @@
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <div class="navbar-nav mr-auto">
                             <a class="nav-item nav-link" href="{% url 'platform-home' %}">Главная</a>
-                            <a class="nav-item nav-link" href="#">Проекты</a>
+                            <a class="nav-item nav-link" href="/platform/forum/">Форум</a>
                             <a class="nav-item nav-link" href="{% url 'platform-about' %}">О платформе</a>
                         </div>
                         <!-- Navbar Right Side -->
@@ -75,6 +75,9 @@
                                 </a>
                                 <a class="list-group-item" href="{% url 'project-done' %}">
                                     Выполненные проекты
+                                </a>
+                                <a class="list-group-item" href="{% url 'quiz_index' %}">
+                                    Тесты
                                 </a>
                                 <a class="list-group-item" href="#">
                                     Mind maps
