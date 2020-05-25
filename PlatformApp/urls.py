@@ -17,6 +17,7 @@ urlpatterns = [
      path("forum/", include(machina_urls)),
      path("about/", platfrom_views.about, name="platform-about"),
      path("quiz/", include(quiz_urls)),
+     path("webinar/", platfrom_views.webinar_test, name="webinar-test"),
 
      path("registration/", user_views.register, name="user-registration"),
      path("profile/", user_views.profile, name="user-profile"),

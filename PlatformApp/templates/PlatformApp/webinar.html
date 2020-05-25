@@ -1,0 +1,27 @@
+{% extends "PlatformApp/base.html" %}
+{% block content %}
+<h2>Вебинарная комната</h2>
+<div style="width: 600px;">
+    <iframe
+        style="height: 400px; width: 600px;"
+        src="https://www.youtube.com/embed/UmljXZIypDc"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+    ></iframe>
+</br>
+</br>
+<h2>Комментарии</h2>
+<div class="content-section">
+    <section class="comments">
+        <article class="comment">
+            <div class="comment-body">
+                <div class="text">
+                    <p>Здесь могли бы быть комментарии</p>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+</div>
+{% endblock content %}

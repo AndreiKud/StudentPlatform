@@ -21,6 +21,8 @@ class StudyProject(models.Model):
     date_created = models.DateTimeField(default=timezone.now, verbose_name="Created on")
     date_deadline = models.DateTimeField(default=timezone.now, verbose_name="Deadline on")
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    
+    # attached_file = models.FileField(upload_to='proj_files')
 
     status = models.CharField(max_length=100, choices=STATUS_CHOISES, default=STATUS_NOT_READY)
 

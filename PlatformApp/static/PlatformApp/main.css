@@ -1,9 +1,9 @@
 body {
-    background: #fafafa;
-    color: #333333;
-    margin-top: 5rem;
-  }
-  
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
@@ -101,4 +101,14 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.iframe {
+  position: fixed;
+  background: #000;
+  border: none;
+  top: 0; right: 0;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 100%;
 }

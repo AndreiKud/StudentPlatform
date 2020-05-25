@@ -15,6 +15,10 @@ def about(request):
     return render(request, 'PlatformApp/about.html')
 
 
+def webinar_test(request):
+    return render(request, 'PlatformApp/webinar.html')
+
+
 # FIXME: form_class for project detail shouldn't be review form...
 class StudyProjectDetailView(FormMixin, DetailView):
     form_class = ProjectReviewForm
