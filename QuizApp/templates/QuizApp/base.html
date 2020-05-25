@@ -1,0 +1,51 @@
+{% extends 'PlatformApp/base.html' %}
+{% load i18n %}
+{% block content %}
+<!-- Before the quiz content -->
+<div class="container">
+  <div class="form-group">
+      <form>
+          <button class="btn btn-info" formaction="{% url 'quiz_index' %}">Все тесты</button>
+          <button class="btn btn-info" formaction="{% url 'quiz_progress' %}">Мои результаты</button>
+          <button class="btn btn-info float-right" formaction="{% url 'quiz_progress' %}">Добавить тест</button>
+      </form>
+  </div>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissable" role="alert">
+        <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">
+                <sup>&times;</sup>
+            </span>
+        </button>
+        {{message}}
+    </div>
+    {% endfor %} {% endif %} {% block quiz_content %} {% endblock %}
+</div>
+<!-- After the quiz content -->
+{% endblock content %}
+
+
+{% block right_panel %}
+<div class="list-group">
+    <a class="list-group-item" href="{% url 'project-all' %}">
+        Все проекты
+    </a>
+    <a class="list-group-item" href="{% url 'project-done' %}">
+        Выполненные проекты
+    </a>
+    <a class="list-group-item active" href="{% url 'quiz_index' %}">
+        Тесты
+    </a>
+    <a class="list-group-item" href="#">
+        Mind maps
+    </a>
+    <a class="list-group-item" href="#">
+        Вебинары
+    </a>
+</div>
+{% endblock right_panel %}

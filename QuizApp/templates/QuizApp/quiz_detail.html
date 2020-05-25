@@ -1,0 +1,19 @@
+{% extends 'QuizApp/base.html' %}
+{% load i18n %}
+{% block title %}
+{{ quiz.title }}
+{% endblock %}
+
+{% block quiz_content %}
+<h2>{{ quiz.title }}</h2>
+<h3>{% trans "Категория" %}: {{ quiz.category }}</h3>
+{% if quiz.single_attempt %}
+  <h4>{% trans "У Вас только одна попытка пройти тест" %}.</h4>
+{% endif %}
+<p>{{ quiz.description }}</p>
+<p>
+  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+	{% trans "Начать тест" %}
+  </a>
+</p>
+{% endblock quiz_content %}

@@ -1,0 +1,99 @@
+{% extends "QuizApp/base.html" %}
+{% load i18n %}
+
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title}} {% endblock %}
+{% block description %} {% trans "Результат теста " %} {{ quiz.title }} {% endblock %}
+
+{% block quiz_content %}
+
+  {% if previous.answers %}
+
+  <p class="muted"><small>{% trans "Предыдущий вопрос" %}:</small></p>
+  <p>{{ previous.previous_question }}</p>
+  <p>Вы ответитли:
+	<strong>
+	  {{ previous.previous_outcome|yesno:"верно,неверно" }}
+	</strong>
+  </p>
+  {% include 'QuizApp/correct_answer.html' %}
+  <p><strong>{% trans "Объяснение" %}:</strong></p>
+  <div class="well " style="background-color: #fcf8e3;">
+    <p>{{ previous.previous_question.explanation }}</p>
+  </div>
+  <hr>
+
+  {% endif %}
+
+  {% if max_score %}
+
+  <div>
+	<h2>{% trans "Результаты теста" %}</h2>
+	<p>
+	  <small class="muted">{% trans "Название теста" %}: </small>
+	  <strong>{{ quiz.title }}</strong></p>
+
+	<p class="lead">
+	  {% trans "Вы ответитли на" %} {{ score }} {% trans "ответов верно из" %} {{ max_score }}, {% trans "что составляет" %} {{ percent }} {% trans "%" %}
+	</p>
+
+	{% if quiz.pass_mark %}
+	<hr>
+        <p class="lead">{{ sitting.result_message }}</p>
+	<hr>
+
+	{% endif %}
+
+	<p>{% trans "Изучите вопросы и попробуйте сдать ещё раз"%}.</p>
+
+	{% if user.is_authenticated %}
+
+	  <p>{% trans "Результаты теста будут сохранены в разделе \"Прогресс\"" %}.</p>
+
+	{% endif %}
+  </div>
+
+
+  {% endif %}
+
+
+  <hr>
+
+  {% if possible %}
+
+  <p class="lead">
+	{% trans "Ваша оценка в текущей сессии" %} {{ session }} {% trans "из возможных" %} {{ possible }}
+  </p>
+
+  <hr>
+
+  {% endif %}
+
+  {% if questions %}
+
+    {% for question in questions %}
+
+      <p class="lead">
+		{{ question.content }}
+	  </p>
+
+	  {% correct_answer_for_all question %}
+
+      {% if question.user_answer %}
+      <p>{% trans "Ваш ответ" %}: {{ question|answer_choice_to_string:question.user_answer }}</p>
+      {% endif %}
+
+	  <p><strong>{% trans "Объяснение" %}:</strong></p>
+	  <div class="well " style="background-color: #fcf8e3;">
+		<p>{{ question.explanation|safe }}</p>
+	  </div>
+
+	  <hr>
+
+  {% endfor %}
+
+  {% endif %}
+
+
+{% endblock quiz_content %}

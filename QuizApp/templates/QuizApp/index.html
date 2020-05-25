@@ -1,0 +1,11 @@
+{% extends "QuizApp/base.html" %}
+
+{% block quiz_content %}
+<h1>Главная</h1>
+{% if user.is_authenticated %}
+    <p>Имя пользователя: {{user.username}}</p>
+    <p>ФИО: {{user.first_name}} {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+{% endif %}
+    
+{% endblock quiz_content %}

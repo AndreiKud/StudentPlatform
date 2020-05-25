@@ -1,0 +1,44 @@
+{% extends 'QuizApp/base.html' %}
+{% load i18n %}
+{% load quiz_tags %}
+{% block title %}{% trans "Все тесты" %}{% endblock %}
+
+{% block quiz_content %}
+<h2>{% trans "Список тестов" %}</h2>
+    {% if quiz_list %}
+		<table class="table table-bordered table-striped">
+
+		  <thead>
+			<tr>
+			  <th>{% trans "Название" %}</th>
+			  <th>{% trans "Категория" %}</th>
+			  <th>{% trans "Тест" %}</th>
+			  <th>{% trans "Единственная попытка" %}</th>
+			  <th></th>
+			</tr>
+		  </thead>
+
+		  <tbody>
+
+        {% for quiz in quiz_list %}
+
+  			<tr>
+			  <td>{{ quiz.title }}</td>
+			  <td>{{ quiz.category }}</td>
+			  <td>{{ quiz.exam_paper }}</td>
+			  <td>{{ quiz.single_attempt }}</td>
+			  <td>
+				<a href="{% url 'quiz_start_page' slug=quiz.url %}">
+				  {% trans "Подробнее" %}
+				</a>
+			</tr>
+
+        {% endfor %}
+		  </tbody>
+
+		</table>
+
+	{% else %}
+        <p>{% trans "Нет доступных тестов" %}.</p>
+    {% endif %}
+{% endblock quiz_content %}

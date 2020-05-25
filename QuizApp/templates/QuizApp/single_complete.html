@@ -1,0 +1,18 @@
+{% extends "QuizApp/base.html" %}
+{% load i18n %}
+
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block quiz_content %}
+
+
+{% if user.is_authenticated %}
+  <p>{% trans "Вы уже проходили этот тест. Разрешена только одна попытка" %}.</p>
+{% else %}
+  <p>{% trans "Тест доступен только авторизованным пользователям" %}.</p>
+{% endif %}
+
+{% endblock quiz_content %}
