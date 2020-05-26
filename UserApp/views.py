@@ -5,11 +5,11 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def register(request):
+def register(request, *args, **kwargs):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(*args, **kwargs)
             username = form.cleaned_data.get("username")
             messages.success(
                 request, f"Your account has been created! Welcome, {username}.")
