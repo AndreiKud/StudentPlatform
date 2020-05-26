@@ -1,34 +1,30 @@
 {% extends "PlatformApp/base.html" %}
 {% block content %}
-<h1>Все проекты</h1>
+{% load templatetagname %}
+<h1>Квалификации пользователей</h1>
 <div class="table-responsive pt-3">
     <table class="table table-hover table-striped">
         <colgroup>
-            <col span="1" style="width: 15%;">
-            <col span="1" style="width: 30%;">
-            <col span="1" style="width: 23%;">
-            <col span="1" style="width: 17%;">
-            <col span="1" style="width: 15%;">
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 25%;">
+            <col span="1" style="width: 45%;">
+            <col span="1" style="width: 20%;">
         </colgroup>
         <thead class="">
             <tr>
                 <th scope="col" class="align-middle">№</th>
-                <th scope="col" class="align-middle">Название</th>
-                <th scope="col" class="align-middle">Срок сдачи</th>
-                <th scope="col" class="align-middle">Статус</th>
-                <th scope="col" class="align-middle"></th>
+                <th scope="col" class="align-middle">Пользователь</th>
+                <th scope="col" class="align-middle">Количество выполненных проектов</th>
+                <th scope="col" class="align-middle">Навыки</th>
             </tr>
         </thead>
         <tbody class="">
             {% for object in object_list %}
             <tr>
                 <td scope="row" class="align-middle">{{ object.id }}</td>
-                <td class="align-middle">{{ object.title }}</td>
-                <td class="align-middle">{{ object.date_deadline|date:"F d, Y" }}</td>
-                <td class="align-middle">{{ object.status }}</td>
-                <td class="align-middle">
-                    <a class="btn btn-info" href="{% url 'project-detail' pk=object.pk %}">Подробнее</a>
-                </td>
+                <td class="align-middle">{{ object.user }}</td>
+                <td class="align-middle">{{ object.done_projects_count }}</td>
+                <td class="align-middle"></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -38,10 +34,10 @@
 
 {% block right_panel %}
 <div class="list-group">
-    <a class="list-group-item" href="{% url 'project-all' %}">
+    <a class="list-group-item active" href="{% url 'project-all' %}">
         Все проекты
     </a>
-    <a class="list-group-item active" href="{% url 'project-done' %}">
+    <a class="list-group-item" href="{% url 'project-done' %}">
         Выполненные проекты
     </a>
     <a class="list-group-item" href="{% url 'project-mine' %}">

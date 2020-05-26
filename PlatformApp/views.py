@@ -4,7 +4,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import StudyProject, Review
+from .models import StudyProject, Review, Qualification
 from .forms import ProjectReviewForm
 from django.conf import settings
 from django.http import HttpResponse, Http404
@@ -39,6 +39,23 @@ class StudyProjectUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('project-detail', kwargs={'pk': self.get_object().pk})
+
+    def form_valid(self, form):
+        is_valid = super().form_valid(form)
+        if is_valid:
+            new_status = form.cleaned_data['status']
+            executor = form.cleaned_data['executor']
+            if new_status == StudyProject.STATUS_READY:
+                qual = Qualification.objects.get(user=executor)
+                if qual:
+                    field_object = Qualification._meta.get_field('done_projects_count')
+                    field_value = field_object.value_from_object(qual)
+                    qual.done_projects_count = field_value + 1
+                    qual.save()
+
+            messages.success(self.request, u"Проект успешно изменен.")
+
+        return is_valid
 
 
 class StudyProjectDetailView(FormMixin, DetailView):
@@ -80,6 +97,14 @@ class StudyProjectDetailView(FormMixin, DetailView):
 
 class StudyProjectListView(ListView):
     model = StudyProject
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class QualificationsListView(ListView):
+    model = Qualification
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

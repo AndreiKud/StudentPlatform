@@ -36,6 +36,9 @@ urlpatterns = [
      path("projects/new/", platfrom_views.StudyProjectCreateView.as_view(),
           name="project-new"),
 
+     path("qualifications/", platfrom_views.QualificationsListView.as_view(),
+          name="qualifications"),
+
      path('projects/<int:pk>/', platfrom_views.StudyProjectDetailView.as_view(), name='project-detail'),
      path('projects/<int:pk>/update', platfrom_views.StudyProjectUpdateView.as_view(), name='project-update'),
      # path('projects/<int:pk>/download', platfrom_views.download_attachment, name='project-update'),

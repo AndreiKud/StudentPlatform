@@ -36,12 +36,15 @@
             <hr>
             <div class="mb-3">
                 <h5>Вложенные файлы:</h5>
-                <p class="col"></p>
+                <p class="col">
+                    {% if object.attached_file %}
                     <a href="{{ object.attached_file.url }}" download>Скачать</a>
+                    {% endif %}
                 </p>
-            </div>
+            </p>
         </div>
     </div>
+</div>
 </article>
 <div class="content-section">
     <section class="comments">

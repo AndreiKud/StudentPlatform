@@ -77,9 +77,9 @@ class Review(models.Model):
         return 'Review by {}'.format(self.author)
 
 
-# class StudyTest(models.Model):
-#     title =
+class Qualification(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    done_projects_count = models.IntegerField()
 
-
-# class StudyTestQuestion(models.Model):
-#     question = models.TextField()
+    def __str__(self):
+        return 'Qualification for {}'.format(self.user)
