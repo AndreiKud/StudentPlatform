@@ -5,11 +5,11 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Новый проект</legend>
+            <legend class="border-bottom mb-4">Проект</legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Добавить</button>
+            <button class="btn btn-info" type="submit">Готово</button>
         </div>
     </form>
 </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse
 from django.contrib import messages
@@ -19,7 +19,12 @@ def webinar_test(request):
     return render(request, 'PlatformApp/webinar.html')
 
 
-# FIXME: form_class for project detail shouldn't be review form...
+class StudyProjectUpdateView(UpdateView):
+    model = StudyProject
+    fields = ['title', 'description', 'customer', 'executor',
+              'date_created', 'date_deadline', 'author', 'status']
+
+
 class StudyProjectDetailView(FormMixin, DetailView):
     form_class = ProjectReviewForm
     model = StudyProject
@@ -79,6 +84,20 @@ class DoneStudyProjectListView(ListView):
         return context
 
 
+class MyStudyProjectListView(ListView):
+    model = StudyProject
+    template_name = 'PlatformApp/my_studyproject_list.html'
+
+    def get_queryset(self):
+        queryset = StudyProject.objects.filter(
+            executor=self.request.user)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 class StudyProjectCreateView(CreateView):
     model = StudyProject
     fields = ['title', 'description', 'date_deadline']
@@ -93,7 +112,7 @@ class StudyProjectCreateView(CreateView):
 
 class ReviewCreateView(CreateView):
     model = Review
-    fields = ['content']
+    fields = ['mark', 'content']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

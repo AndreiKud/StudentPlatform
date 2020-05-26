@@ -12,24 +12,29 @@ class StudyProject(models.Model):
         (STATUS_NOT_READY, 'Открытый'),
     )
 
-    title = models.CharField(max_length=100)
-    description = models.TextField()
+    title = models.CharField(max_length=100, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
 
-    customer = models.CharField(max_length=100, default="empty")
-    executor = models.CharField(max_length=100, default="empty")
+    customer = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, related_name='project_customer', verbose_name='Заказчик')
+    executor = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, null=True, related_name='project_executor', verbose_name='Исполнитель')
 
-    date_created = models.DateTimeField(default=timezone.now, verbose_name="Created on")
-    date_deadline = models.DateTimeField(default=timezone.now, verbose_name="Deadline on")
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    
+    date_created = models.DateTimeField(
+        default=timezone.now, verbose_name='Дата создания')
+    date_deadline = models.DateTimeField(
+        default=timezone.now, verbose_name='Срок выполения')
+    author = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, related_name='project_author', verbose_name='Создатель проекта')
+
     # attached_file = models.FileField(upload_to='proj_files')
 
-    status = models.CharField(max_length=100, choices=STATUS_CHOISES, default=STATUS_NOT_READY)
+    status = models.CharField(
+        max_length=100, choices=STATUS_CHOISES, default=STATUS_NOT_READY, verbose_name='Статус')
 
     # For querying convenience.
     def __str__(self):
         return self.title
-
 
     def get_absolute_url(self):
         return reverse('project-detail', kwargs={'pk': self.pk})
@@ -51,15 +56,19 @@ class Review(models.Model):
         (MARK_EXCELLENT, 'Отлично'),
     )
 
-    project = models.ForeignKey(StudyProject, on_delete=models.CASCADE)
-    content = models.TextField()
-    date_created = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    mark = models.CharField(max_length=100, choices=MARK_CHOISES, default=MARK_NONE)
+    project = models.ForeignKey(
+        StudyProject, on_delete=models.CASCADE, verbose_name='Проект')
+    content = models.TextField(verbose_name='Текст')
+    date_created = models.DateTimeField(
+        default=timezone.now, verbose_name='Дата написания')
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='Автор')
+    mark = models.CharField(
+        max_length=100, choices=MARK_CHOISES, default=MARK_NONE, verbose_name='Оценка')
 
     class Meta:
         ordering = ['date_created']
-    
+
     def __str__(self):
         return 'Review by {}'.format(self.author)
 

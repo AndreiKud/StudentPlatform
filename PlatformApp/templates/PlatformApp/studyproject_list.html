@@ -1,8 +1,26 @@
 {% extends "PlatformApp/base.html" %}
 {% block content %}
+{% load templatetagname %}
 <h1>Все проекты</h1>
 <div class="table-responsive pt-3">
+    <div class="form-group">
+        <form>
+            <button class="btn btn-info" formaction="{% url 'project-new' %}">Добавить проект</button>
+        </form>
+    </div>
     <table class="table table-hover table-striped">
+        {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
+        <colgroup>
+            <col span="1" style="width: 13%;">
+            <col span="1" style="width: 28%;">
+            <col span="1" style="width: 21%;">
+            <col span="1" style="width: 15%;">
+            <col span="1" style="width: 12%;">
+            {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
+            <col span="1" style="width: 11%;">
+            {% endif %}
+        </colgroup>
+        {% else %}
         <colgroup>
             <col span="1" style="width: 15%;">
             <col span="1" style="width: 30%;">
@@ -10,6 +28,7 @@
             <col span="1" style="width: 17%;">
             <col span="1" style="width: 15%;">
         </colgroup>
+        {% endif %}
         <thead class="">
             <tr>
                 <th scope="col" class="align-middle">№</th>
@@ -17,6 +36,9 @@
                 <th scope="col" class="align-middle">Срок сдачи</th>
                 <th scope="col" class="align-middle">Статус</th>
                 <th scope="col" class="align-middle"></th>
+                {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
+                <th scope="col" class="align-middle"></th>
+                {% endif %}
             </tr>
         </thead>
         <tbody class="">
@@ -29,6 +51,11 @@
                 <td class="align-middle">
                     <a class="btn btn-info" href="{% url 'project-detail' pk=object.pk %}">Подробнее</a>
                 </td>
+                {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
+                <td class="align-middle">
+                    <a class="btn btn-info" href="{% url 'project-update' pk=object.pk %}">Изменить</a>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
@@ -43,6 +70,9 @@
     </a>
     <a class="list-group-item" href="{% url 'project-done' %}">
         Выполненные проекты
+    </a>
+    <a class="list-group-item" href="{% url 'project-mine' %}">
+        Мои текущие проекты
     </a>
     <a class="list-group-item" href="{% url 'quiz_index' %}">
         Тесты

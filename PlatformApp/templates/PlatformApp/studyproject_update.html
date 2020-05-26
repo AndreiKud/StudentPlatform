@@ -2,6 +2,11 @@
 {% load crispy_forms_tags %}
 {% load templatetagname %}
 {% block content %}
+<form method="post" action="#">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+</form>
 <article class="media content-section">
     <!-- <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> -->
     <div class="media-body">
@@ -41,37 +46,4 @@
         </div>
     </div>
 </article>
-<div class="content-section">
-    <section class="comments">
-        {% for review in reviews %}
-        <article class="comment">
-            <div class="comment-body">
-                <div class="text">
-                    <p>{{ review.content }}</p>
-                </div>
-                <p class="attribution">
-                    by
-                    <a href="#">{{ review.author }}</a>
-                    at {{ review.date_created }}
-                </p>
-            </div>
-        </article>
-        <hr class="mb-5">
-        {% empty %}
-        <p>Рецензии отстутствуют.</p>
-        {% endfor %}
-        {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
-        <form method="POST">
-            {% csrf_token %}
-            <label for="comment">Ваша рецензия:</label>
-            <fieldset class="form-group">
-                {{ review_form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-info" type="submit">Оставить рецензию</button>
-            </div>
-        </form>
-        {% endif %}
-    </section>
-</div>
 {% endblock content %}

@@ -22,7 +22,7 @@
     {% block header_collapse %}
     <form class="form-inline my-2 ml-3 my-lg-0" role="search" action="{% url 'forum_search:search' %}">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{% trans "Search" %}</button>
+      <button class="btn btn-light my-2 my-sm-0" type="submit">{% trans "Search" %}</button>
     </form>
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link" href="{% url 'forum_search:search' %}">{% trans "Advanced search" %}</a>
