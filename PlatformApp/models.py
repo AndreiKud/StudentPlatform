@@ -16,12 +16,12 @@ class StudyProject(models.Model):
     )
 
     title = models.CharField(max_length=100, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(verbose_name='Описание', blank=True)
 
     customer = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, related_name='project_customer', verbose_name='Заказчик')
+        User, on_delete=models.DO_NOTHING, related_name='project_customer', verbose_name='Заказчик', blank=True)
     executor = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, null=True, related_name='project_executor', verbose_name='Исполнитель')
+        User, on_delete=models.DO_NOTHING, null=True, related_name='project_executor', verbose_name='Исполнитель', blank=True)
 
     date_created = models.DateTimeField(
         default=timezone.now, verbose_name='Дата создания')
@@ -31,7 +31,7 @@ class StudyProject(models.Model):
         User, on_delete=models.DO_NOTHING, related_name='project_author', verbose_name='Создатель проекта')
 
     attached_file = models.FileField(
-        upload_to='proj_files', null=True, verbose_name='Прикрепленные файлы')
+        upload_to='proj_files', null=True, verbose_name='Прикрепленные файлы', blank=True)
 
     status = models.CharField(
         max_length=100, choices=STATUS_CHOISES, default=STATUS_NOT_READY, verbose_name='Статус')

@@ -10,7 +10,7 @@
 
   {% if previous.answers %}
 
-  <p class="muted"><small>{% trans "Предыдущий вопрос" %}:</small></p>
+  <p class="muted">{% trans "Предыдущий вопрос" %}:</p>
   <p>{{ previous.previous_question }}</p>
   <p>Вы ответитли:
 	<strong>
@@ -35,7 +35,7 @@
 	  <strong>{{ quiz.title }}</strong></p>
 
 	<p class="lead">
-	  {% trans "Вы ответитли на" %} {{ score }} {% trans "ответов верно из" %} {{ max_score }}, {% trans "что составляет" %} {{ percent }} {% trans "%" %}
+	  {% trans "Вы ответитли на" %} {{ score }} {% trans "ответов верно из" %} {{ max_score }}, {% trans "что составляет" %} <b>{{ percent }} {% trans "%" %}</b>
 	</p>
 
 	{% if quiz.pass_mark %}

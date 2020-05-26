@@ -116,7 +116,7 @@ class MyStudyProjectListView(ListView):
 
 class StudyProjectCreateView(CreateView):
     model = StudyProject
-    fields = ['title', 'description', 'date_deadline']
+    fields = ['title', 'description', 'date_deadline', 'customer', 'attached_file']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
