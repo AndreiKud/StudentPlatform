@@ -60,7 +60,7 @@
         {% empty %}
         <p>Рецензии отстутствуют.</p>
         {% endfor %}
-        {% if request.user|has_group:"Teacher" %}
+        {% if request.user|has_group:"Teacher" or request.user|has_group:"Admin" %}
         <form method="POST">
             {% csrf_token %}
             <label for="comment">Ваша рецензия:</label>
