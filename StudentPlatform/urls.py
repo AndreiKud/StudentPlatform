@@ -25,7 +25,7 @@ admin.site.site_url = "/platform/"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('platform/', include('PlatformApp.urls')),
+    path('', include('PlatformApp.urls')),
 ]
 
 if settings.DEBUG:
