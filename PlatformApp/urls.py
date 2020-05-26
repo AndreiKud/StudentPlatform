@@ -4,6 +4,7 @@ from django.urls import path, include
 from . import views as platfrom_views
 from django.contrib.auth import views as auth_views
 from machina import urls as machina_urls
+from django.contrib.auth.decorators import login_required
 
 
 # FIXME
@@ -31,9 +32,9 @@ urlpatterns = [
           name="project-all"),
      path("projects/done/", platfrom_views.DoneStudyProjectListView.as_view(),
           name="project-done"),
-    path("projects/mine/", platfrom_views.MyStudyProjectListView.as_view(),
+    path("projects/mine/", login_required(platfrom_views.MyStudyProjectListView.as_view()),
          name="project-mine"),
-     path("projects/new/", platfrom_views.StudyProjectCreateView.as_view(),
+     path("projects/new/", login_required(platfrom_views.StudyProjectCreateView.as_view()),
           name="project-new"),
 
      path("qualifications/", platfrom_views.QualificationsListView.as_view(),
