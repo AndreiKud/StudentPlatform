@@ -1,5 +1,6 @@
 {% extends "PlatformApp/base.html" %}
 {% load crispy_forms_tags %}
+{% load templatetagname %}
 {% block content %}
 <article class="media content-section">
     <!-- <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> -->
@@ -57,18 +58,20 @@
         </article>
         <hr class="mb-5">
         {% empty %}
-        <p>Отзывы отстутствуют. Будьте первым!</p>
+        <p>Рецензии отстутствуют.</p>
         {% endfor %}
+        {% if request.user|has_group:"Teacher" %}
         <form method="POST">
             {% csrf_token %}
-            <label for="comment">Ваш отзыв:</label>
+            <label for="comment">Ваша рецензия:</label>
             <fieldset class="form-group">
                 {{ review_form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Оставить отзыв</button>
+                <button class="btn btn-outline-info" type="submit">Оставить рецензию</button>
             </div>
         </form>
+        {% endif %}
     </section>
 </div>
 {% endblock content %}
