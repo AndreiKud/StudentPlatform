@@ -38,5 +38,6 @@ urlpatterns = [
 
      path('projects/<int:pk>/', platfrom_views.StudyProjectDetailView.as_view(), name='project-detail'),
      path('projects/<int:pk>/update', platfrom_views.StudyProjectUpdateView.as_view(), name='project-update'),
+     # path('projects/<int:pk>/download', platfrom_views.download_attachment, name='project-update'),
      # path('projects/<int:pk>/add_review/', platfrom_views.add_review, name='project-add-review'),
 ]

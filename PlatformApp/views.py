@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormMixin
@@ -5,6 +6,18 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .models import StudyProject, Review
 from .forms import ProjectReviewForm
+from django.conf import settings
+from django.http import HttpResponse, Http404
+
+
+def download_attachment(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
 
 
 def home(request):
@@ -22,7 +35,10 @@ def webinar_test(request):
 class StudyProjectUpdateView(UpdateView):
     model = StudyProject
     fields = ['title', 'description', 'customer', 'executor',
-              'date_created', 'date_deadline', 'author', 'status']
+              'date_created', 'date_deadline', 'author', 'status', 'attached_file']
+
+    def get_success_url(self):
+        return reverse('project-detail', kwargs={'pk': self.get_object().pk})
 
 
 class StudyProjectDetailView(FormMixin, DetailView):

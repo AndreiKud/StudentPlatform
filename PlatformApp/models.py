@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 from django.urls import reverse
+
+fs = FileSystemStorage(location='/proj_files')
 
 
 class StudyProject(models.Model):
@@ -27,7 +30,8 @@ class StudyProject(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='project_author', verbose_name='Создатель проекта')
 
-    # attached_file = models.FileField(upload_to='proj_files')
+    attached_file = models.FileField(
+        upload_to='proj_files', null=True, verbose_name='Прикрепленные файлы')
 
     status = models.CharField(
         max_length=100, choices=STATUS_CHOISES, default=STATUS_NOT_READY, verbose_name='Статус')
