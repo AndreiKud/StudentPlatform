@@ -16,7 +16,7 @@ django-storages==1.9.1
 django-widget-tweaks==1.4.8
 idna==2.9
 lxml==4.5.1
-markdown2==2.3.9
+markdown2==2.4.0
 microurl==0.1.1
 Pillow==7.1.2
 pycodestyle==2.6.0
